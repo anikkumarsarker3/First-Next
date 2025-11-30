@@ -1,7 +1,18 @@
+"use client"
 import Link from 'next/link';
-const page = async () => {
-    const res = await fetch("https://my-first-next-server-one.vercel.app/furniture");
-    const posts = await res.json();
+import { useEffect, useState } from 'react';
+const page = () => {
+    const [posts, setFurnitures] = useState([])
+    useEffect(() => {
+        const loadData = async () => {
+            const res = await fetch("https://my-first-next-server-one.vercel.app/furniture");
+            const posts = await res.json();
+            setFurnitures(posts);
+        };
+
+        loadData();
+    }, []);
+
     return (
         <section className="py-8 bg-gray-50">
             <h2 className="text-3xl font-bold text-center mb-12">All Items</h2>

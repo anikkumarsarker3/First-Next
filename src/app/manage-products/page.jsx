@@ -1,10 +1,8 @@
 "use client"
-
 import useAuth from '@/hooks/useAuth';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react';
 import { ToastContainer, toast } from 'react-toastify';
-
 const page = () => {
     const [furnitures, setFurnitures] = useState([])
     const { user } = useAuth();
