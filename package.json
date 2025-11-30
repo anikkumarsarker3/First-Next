@@ -12,10 +12,13 @@
     "@heroui/navbar": "^2.2.25",
     "@heroui/react": "^2.8.5",
     "@tailwindcss/vite": "^4.1.17",
+    "aos": "^2.3.4",
     "firebase": "^12.6.0",
     "next": "16.0.4",
     "react": "19.2.0",
-    "react-dom": "19.2.0"
+    "react-dom": "19.2.0",
+    "react-responsive-carousel": "^3.2.23",
+    "react-toastify": "^11.0.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

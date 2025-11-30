@@ -10,11 +10,10 @@ export default function Homes() {
   return (
     <div className="">
       <Home></Home>
-      <Features></Features>
       <Items></Items>
+      <Features></Features>
       <Testimonials></Testimonials>
       <PromoBanner></PromoBanner>
-      <div>hello world</div>
     </div>
   );
 }

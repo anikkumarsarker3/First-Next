@@ -9,8 +9,8 @@ const Navbar = () => {
     const { user, logOut } = useAuth();
     const links = <>
         <li><Link href='/'>Home</Link></li>
-        <li><Link href='/about'>About</Link></li>
         <li><Link href='/products'>Products</Link></li>
+        <li><Link href='/about'>About</Link></li>
         {
             user && <>
                 <li><Link href='/add-product'>Add Product</Link></li>

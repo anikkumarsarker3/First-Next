@@ -1,39 +1,76 @@
-"use client";
-import useAuth from "@/hooks/useAuth";
-import React from "react";
+import React from 'react';
 
-const Page = ({ params }) => {
-    const { id } = params;
-    const { user, loading } = useAuth();
-
-    if (loading) return <p className="text-center py-10">Loading...</p>;
-
-    if (!user) {
-        return (
-            <p className="text-center py-10 text-red-500 font-semibold">
-                You must be logged in to view this page.
-            </p>
-        );
-    }
-
+const page = async ({ params }) => {
+    const { id } = await params
+    const res = await fetch(`https://my-first-next-server-one.vercel.app/furniture/${id}`);
+    const post = await res.json();
+    const { name, category, price, material, dimensions, stock, image, description } = post;
     return (
-        <div className="bg-base-200 my-10">
-            <div className="hero-content flex-col lg:flex-row">
-                <img
-                    src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-                    className="max-w-sm rounded-lg shadow-2xl"
-                />
-                <div>
-                    <h1 className="text-5xl font-bold">Box Office News! ID: {id}</h1>
-                    <p className="py-6">
-                        Provident cupiditate voluptatem et in. Quaerat fugiat ut assumenda excepturi exercitationem
-                        quasi. In deleniti eaque aut repudiandae et a id nisi.
+        <section className="px-6 py-14 bg-gray-100 min-h-screen flex items-center justify-center">
+            <div className="max-w-5xl w-full bg-white rounded-3xl shadow-xl p-8 md:flex gap-10">
+
+                {/* Image Section */}
+                <div className="md:w-1/2">
+                    <img
+                        src={image}
+                        alt={name}
+                        className="rounded-2xl shadow-lg w-full object-cover"
+                    />
+                </div>
+
+                {/* Details Section */}
+                <div className="md:w-1/2 mt-6 md:mt-0">
+                    <h1 className="text-4xl font-extrabold text-gray-900">
+                        {name}
+                    </h1>
+
+                    <p className="text-lg mt-2 text-gray-600">
+                        Category: <span className="font-semibold">{category}</span>
                     </p>
-                    <button className="btn btn-primary">Get Started</button>
+
+                    <p className="text-xl mt-3 font-semibold text-gray-800">
+                        Price: <span className="text-green-600">${price}</span>
+                    </p>
+
+                    <p className="text-gray-700 mt-2">
+                        Material: <span className="font-semibold">{material}</span>
+                    </p>
+
+                    <p className="text-gray-700 mt-1">
+                        Dimensions: <span className="font-medium">{dimensions}</span>
+                    </p>
+
+                    {/* Stock Badge */}
+                    <span
+                        className={`inline-block px-4 py-1 text-sm font-semibold rounded-full mt-4
+                        ${stock
+                                ? "bg-green-100 text-green-700"
+                                : "bg-red-100 text-red-700"
+                            }`}
+                    >
+                        {stock ? "In Stock" : "Out Stock"}
+                    </span>
+
+                    <div className="mt-6">
+                        <h2 className="text-xl font-bold">Description</h2>
+                        <p className="text-gray-600 mt-2 leading-relaxed">
+                            {post.description}
+                        </p>
+                    </div>
+
+                    <button
+                        className="mt-8 px-8 py-3 bg-indigo-600 hover:bg-indigo-700 transition text-white rounded-xl shadow-lg font-semibold"
+                    >
+                        Buy Now
+                    </button>
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
-export default Page;
+export default page;
+
+
+
+

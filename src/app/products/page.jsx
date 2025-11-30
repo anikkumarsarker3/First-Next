@@ -1,30 +1,23 @@
 import Link from 'next/link';
-import React from 'react';
-const page = () => {
+const page = async () => {
+    const res = await fetch("https://my-first-next-server-one.vercel.app/furniture");
+    const posts = await res.json();
     return (
-        <div className='flex flex-col my-5'>
-            <Link href='products/1'>
-                <div className="card bg-base-100 w-96 shadow-sm">
-                    <figure>
-                        <img
-                            src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp"
-                            alt="Shoes" />
-                    </figure>
-                    <div className="card-body">
-                        <h2 className="card-title">Card Title</h2>
-                        <p>A card component has a figure, a body part, and inside body there are title and actions parts</p>
-                        <div className="card-actions justify-end">
-                            <button className="btn btn-primary">Buy Now</button>
+        <section className="py-8 bg-gray-50">
+            <h2 className="text-3xl font-bold text-center mb-12">All Items</h2>
+            <div className=" mx-auto grid md:grid-cols-3 gap-5 px-3">
+                {posts.map((post) => (
+                    <Link href={`/products/${post._id}`} key={post._id} className=" bg-gray-200 rounded-xl p-4 shadow hover:shadow-lg transition hover:scale-105">
+                        <div className="h-60 bg-gray-200 rounded mb-4">
+                            <img src={post.image} alt="" className="overflow-hidden bg-cover h-full w-full rounded-lg" />
                         </div>
-                    </div>
-                </div>
-
-
-
-
-            </Link>
-
-        </div>
+                        <h3 className="text-lg font-semibold">{post.name}</h3>
+                        <p className="text-gray-600 text-sm">{post.description}</p>
+                        {post.stock && <span className="text-gray-600 text-sm bg-amber-400 rounded-2xl p-1 px-2 my-5">Stock</span>}
+                    </Link>
+                ))}
+            </div>
+        </section>
     );
 };
 
