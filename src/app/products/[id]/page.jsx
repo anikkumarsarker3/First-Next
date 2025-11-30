@@ -1,9 +1,19 @@
-import React from 'react';
+"use client"
+import React, { use, useEffect, useState } from 'react';
 
-const page = async ({ params }) => {
-    const { id } = await params
-    const res = await fetch(`https://my-first-next-server-one.vercel.app/furniture/${id}`);
-    const post = await res.json();
+export default function Page({ props }) {
+    const { id } = use(props.params);
+    const [post, setFurnitures] = useState([])
+    useEffect(() => {
+        const loadData = async () => {
+            const res = await fetch(`https://my-first-next-server-one.vercel.app/furniture/${id}`);
+            const post = await res.json();
+            setFurnitures(post);
+        };
+
+        loadData();
+    }, [id]);
+
     const { name, category, price, material, dimensions, stock, image, description } = post;
     return (
         <section className="px-6 py-14 bg-gray-100 min-h-screen flex items-center justify-center">
@@ -69,7 +79,7 @@ const page = async ({ params }) => {
     );
 };
 
-export default page;
+
 
 
 
